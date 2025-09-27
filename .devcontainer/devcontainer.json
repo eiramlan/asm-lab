@@ -1,0 +1,23 @@
+{
+  "name": "ASM Lab",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "runArgs": ["--platform=linux/amd64"],
+  "workspaceFolder": "/lab",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/lab,type=bind",
+
+  "remoteUser": "root",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.makefile-tools",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+
+  "postCreateCommand": "make || true"
+}
