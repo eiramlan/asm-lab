@@ -1,23 +1,11 @@
 {
-  "name": "ASM Lab",
-  "build": {
-    "dockerfile": "../Dockerfile",
-    "context": ".."
-  },
-  "runArgs": ["--platform=linux/amd64"],
-  "workspaceFolder": "/lab",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/lab,type=bind",
-
-  "remoteUser": "root",
-
+  "name": "ASM Lab (NASM)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {},
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y nasm make binutils && echo 'Ready.'",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-vscode.makefile-tools",
-        "ms-azuretools.vscode-docker"
-      ]
+      "extensions": ["ms-vscode.makefile-tools"]
     }
-  },
-
-  "postCreateCommand": "make || true"
+  }
 }
