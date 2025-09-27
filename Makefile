@@ -4,11 +4,9 @@ PROG ?= hello
 all: $(PROG)
 
 $(PROG): $(PROG).o
-	@echo "Linking $@ ..."
-	gcc -nostartfiles -no-pie -o $@ $<
+	ld -o $@ $<
 
 %.o: %.asm
-	@echo "Assembling $< ..."
 	nasm -felf64 $< -o $@
 
 run: $(PROG)
