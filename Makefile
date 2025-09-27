@@ -1,24 +1,24 @@
-# Makefile
+# -------- Settings --------
 PROG ?= hello
-MODE ?= 64          # set MODE=32 for IA-32 builds
+MODE ?= 64        # use MODE=32 for your slide-era code
 
-ifeq ($(MODE),32)
-  NASM_FMT = -felf32
-  LD_FLAGS = -m elf_i386
+ifeq ($(MODE),64)
+  ASM_FMT = elf64
+  LD_EMU  = elf_x86_64
 else
-  NASM_FMT = -felf64
-  LD_FLAGS =
+  ASM_FMT = elf32
+  LD_EMU  = elf_i386
 endif
 
 all: $(PROG)
 
 $(PROG): $(PROG).o
 	@echo "Linking $@ ..."
-	ld $(LD_FLAGS) -o $@ $<
+	ld -m $(LD_EMU) -o $@ $<
 
 %.o: %.asm
 	@echo "Assembling $< ..."
-	nasm $(NASM_FMT) $< -o $@
+	nasm -f$(ASM_FMT  ) $< -o $@
 
 run: $(PROG)
 	./$(PROG)
@@ -26,3 +26,4 @@ run: $(PROG)
 clean:
 	rm -f *.o $(PROG)
 
+.PHONY: all run clean
